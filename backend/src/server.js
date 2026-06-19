@@ -16,7 +16,6 @@ app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
 app.use("/api/inngest",serve({client: inngest, functions}));
 
 const __dirname = path.resolve()
-app.use(express.json())
 app.get('/books',(req,res)=>{
     res.status(200).json({msg:"this is the book endpoint"})
 })
