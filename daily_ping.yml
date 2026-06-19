@@ -3,7 +3,7 @@ name: Daily render ping
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight UTC
+    - cron: '*/14 * * * *' # Pings every 14 minutes
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
