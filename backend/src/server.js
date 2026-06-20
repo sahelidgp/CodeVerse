@@ -45,55 +45,47 @@ const startServer = async() => {
 
 };
 startServer();
-app.post(
-  '/api/webhooks',
-  bodyParser.raw({ type: 'application/json' }),
-  async function (req, res) {
-    try {
-      const payloadString = req.body.toString();
-      const svixHeaders = req.headers;
+app.post('/api/webhooks', bodyParser.raw({ type: 'application/json' }), async function (req, res) {
+  try {
+    const payloadString = req.body.toString();
+    const svixHeaders = req.headers;
 
-      const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
-      const evt = wh.verify(payloadString, svixHeaders);
+    const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
+    const evt = wh.verify(payloadString, svixHeaders);
 
-      const { id, ...attributes } = evt.data;
+    const eventType = evt.type;
 
-      const eventType = evt.type;
+    if (eventType === 'user.created') {
+      // The payload structure you provided shows user data is inside 'data'
+      const userData = evt.data; 
 
-      if (eventType === 'user.created') {
-  // The 'data' object in the JSON contains the user information
-  const userData = evt.data; 
+      const clerkUserId = userData.id;
+      const firstName = userData.first_name || "N/A";
+      const lastName = userData.last_name || "N/A";
+      // Accessing the nested email array correctly
+      const email = userData.email_addresses?.[0]?.email_address || "No Email";
 
-  const clerkUserId = userData.id;
-  const firstName = userData.first_name || "N/A";
-  const lastName = userData.last_name || "N/A";
-  const email = userData.email_addresses?.[0]?.email_address || "No Email";
+      console.log(`Processing user: ${firstName} ${lastName} (${email})`);
 
-  console.log(`Processing user: ${firstName} ${lastName} (${email})`);
+      // Use findOneAndUpdate to prevent duplicates
+      const user = await User.findOneAndUpdate(
+        { clerkUserId: clerkUserId },
+        { 
+          $set: { 
+            firstName: firstName, 
+            lastName: lastName,
+            email: email
+          } 
+        },
+        { upsert: true, new: true }
+      );
 
-  const user = await User.findOneAndUpdate(
-    { clerkUserId: clerkUserId },
-    { 
-      $set: { 
-        firstName: firstName, 
-        lastName: lastName,
-        email: email
-      } 
-    },
-    { upsert: true, new: true }
-  );
-
-  console.log('✅ User successfully synced to MongoDB:', user.clerkUserId);
-}
-      res.status(200).json({
-        success: true,
-        message: 'Webhook received',
-      });
-    } catch (err) {
-      res.status(400).json({
-        success: false,
-        message: err.message,
-      });
+      console.log('✅ User successfully synced to MongoDB:', user.clerkUserId);
     }
+
+    res.status(200).json({ success: true, message: 'Webhook received' });
+  } catch (err) {
+    console.error("Webhook Error:", err.message);
+    res.status(400).json({ success: false, message: err.message });
   }
-);
+});
