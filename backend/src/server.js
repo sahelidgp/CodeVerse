@@ -61,23 +61,30 @@ app.post(
       const eventType = evt.type;
 
       if (eventType === 'user.created') {
-        const firstName = attributes.first_name;
-        const lastName = attributes.last_name;
+  // The 'data' object in the JSON contains the user information
+  const userData = evt.data; 
 
-        console.log(firstName);
+  const clerkUserId = userData.id;
+  const firstName = userData.first_name || "N/A";
+  const lastName = userData.last_name || "N/A";
+  const email = userData.email_addresses?.[0]?.email_address || "No Email";
 
-        const user = new User({
-          clerkUserId: id,
-          firstName: firstName,
-          lastName: lastName,
-        });
+  console.log(`Processing user: ${firstName} ${lastName} (${email})`);
 
-        await user.save();
-        console.log('User is created');
-        // console.log(`User ${id} is ${eventType}`);
-        // console.log(attributes);
-      }
+  const user = await User.findOneAndUpdate(
+    { clerkUserId: clerkUserId },
+    { 
+      $set: { 
+        firstName: firstName, 
+        lastName: lastName,
+        email: email
+      } 
+    },
+    { upsert: true, new: true }
+  );
 
+  console.log('✅ User successfully synced to MongoDB:', user.clerkUserId);
+}
       res.status(200).json({
         success: true,
         message: 'Webhook received',
