@@ -20,8 +20,12 @@ const syncUser = inngest.createFunction(
       profileImage: image_url,
     };
 
-    await User.create(newUser);
-
+   // await User.create(newUser);
+await User.findOneAndUpdate(
+      { clerkId: id }, // Look for this user
+      newUser,         // The data to save
+      { upsert: true, new: true } // If they don't exist, create them. If they do, update them!
+    );
     await upsertStreamUser({
       id: newUser.clerkId.toString(),
       name: newUser.name,
