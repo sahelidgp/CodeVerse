@@ -3,7 +3,8 @@ import { ENV } from "./env.js"
 
 const apiKey = ENV.STREAM_API_KEY;
 const apiSecret = ENV.STREAM_API_SECRET;
-
+console.log("Stream API Key exists:", !!apiKey);
+console.log("Stream Secret exists:", !!apiSecret);
 if(!apiKey || !apiSecret){
     console.log("STREAM_API_KEY or STREAM_API_SECRET is missing")
 }
