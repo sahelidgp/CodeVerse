@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+# This workflow runs every time you push to the 'main' branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Grabs your code from the GitHub repository
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Sets up the correct version of Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x' # Using standard LTS version
+
+    # 3. Installs Backend Dependencies
+    # NOTE: Change './backend' if your backend folder is named differently (e.g., './server')
+    - name: Install Backend Dependencies
+      working-directory: ./backend 
+      run: npm install
+
+    # 4. Installs Frontend Dependencies
+    # NOTE: Change './frontend' if your frontend folder is named differently (e.g., './client')
+    - name: Install Frontend Dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    # 5. Tests the Frontend Build
+    # This ensures your React app compiles successfully without syntax errors
+    - name: Build Frontend
+      working-directory: ./frontend
+      run: npm run build
