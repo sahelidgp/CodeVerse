@@ -20,6 +20,7 @@
     "inngest": "^3.54.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.24.0",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "stream-chat": "^9.47.0"
   }
 }
