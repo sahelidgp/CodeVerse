@@ -9,7 +9,7 @@ import { connectDB } from "./lib/db.js";
 import { inngest, functions } from "./lib/inngest.js";
 
 import chatRoutes from "./routes/chatRoutes.js";
-//import sessionRoutes from "./routes/sessionRoute.js";
+import sessionRoutes from "./routes/sessionRoute.js";
 
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
@@ -23,9 +23,7 @@ app.use(clerkMiddleware()); // this adds auth field to request object: req.auth(
 
 app.use("/api/inngest",serve({client: inngest, functions}));
 app.use("/api/chat", chatRoutes);
-//app.use("/api/sessions", sessionRoutes);
-
-
+app.use("/api/sessions", sessionRoutes);
 
 //make our app for deployment
 if(ENV.NODE_ENV === "production"){
@@ -35,8 +33,6 @@ if(ENV.NODE_ENV === "production"){
         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
     })
 }
-
-
 const startServer = async() => {
     try{
         await connectDB();
