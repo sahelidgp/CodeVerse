@@ -25,7 +25,7 @@ function ProblemsPage() {
           </p>
         </div>
 
-        {/* PROBLEMS LIST */}
+        PROBLEMS LIST
         <div className="space-y-4">
           {problems.map((problem) => (
             <Link
