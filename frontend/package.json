@@ -10,10 +10,22 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.8",
-    "lucide-react": "^1.20.0",
+    "@monaco-editor/react": "^4.7.0",
+    "@stream-io/video-react-sdk": "^1.38.0",
+    "@tailwindcss/vite": "^4.3.1",
+    "@tanstack/react-query": "^5.101.0",
+    "axios": "^1.18.0",
+    "canvas-confetti": "^1.9.4",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.21.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.18.0"
+    "react-hot-toast": "^2.6.0",
+    "react-resizable-panels": "^4.11.2",
+    "react-router": "^8.0.1",
+    "react-router-dom": "^7.18.0",
+    "stream-chat": "^9.47.1",
+    "stream-chat-react": "^14.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
@@ -22,6 +34,7 @@
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.3",
     "autoprefixer": "^10.5.0",
+    "daisyui": "^5.5.23",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
