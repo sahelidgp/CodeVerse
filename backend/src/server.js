@@ -14,42 +14,44 @@ import sessionRoutes from "./routes/sessionRoute.js";
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
-const __dirname = path.resolve()
+const __dirname = path.resolve();
+
 // middleware
 app.use(express.json());
+
 // Set CORS based on environment
 const corsOptions = {
   origin: ENV.NODE_ENV === "production" 
     ? "https://codeverse-wkhy.onrender.com" 
-    : ENV.CLIENT_URL, // Use your development URL locally
+    : ENV.CLIENT_URL,
   credentials: true
 };
 
 app.use(cors(corsOptions));
-app.use(clerkMiddleware()); // this adds auth field to request object: req.auth()
+app.use(clerkMiddleware()); 
 
-app.use("/api/inngest",serve({client: inngest, functions}));
+// API Routes
+app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 app.use("/api/sessions", sessionRoutes);
 
-//make our app for deployment
-if(ENV.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname,"../frontend/dist")))
+// Production static file serving
+if (ENV.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    app.get(["/*", "/"], (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-});
+    // Standard Express catch-all route for SPA routing
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    });
 }
-const startServer = async() => {
-    try{
+
+const startServer = async () => {
+    try {
         await connectDB();
-        app.listen(ENV.PORT,()=>console.log(`Server is running on port ${ENV.PORT}`));
-     
-    
-    }catch(error){
-        console.error("💥Error starting the server",error);
-    }   
-
+        app.listen(ENV.PORT, () => console.log(`Server is running on port ${ENV.PORT}`));
+    } catch (error) {
+        console.error("💥 Error starting the server", error);
+    }
 };
-startServer();
 
+startServer();
