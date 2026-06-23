@@ -17,8 +17,15 @@ const app = express();
 const __dirname = path.resolve()
 // middleware
 app.use(express.json());
-//credentials:true means server allows a browser to include cookies on request
-app.use(cors({origin:ENV.CLIENT_URL,credentials:true}))
+// Set CORS based on environment
+const corsOptions = {
+  origin: ENV.NODE_ENV === "production" 
+    ? "https://codeverse-wkhy.onrender.com" 
+    : ENV.CLIENT_URL, // Use your development URL locally
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(clerkMiddleware()); // this adds auth field to request object: req.auth()
 
 app.use("/api/inngest",serve({client: inngest, functions}));
@@ -29,7 +36,7 @@ app.use("/api/sessions", sessionRoutes);
 if(ENV.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
 
-    app.get("/{*any}",(req,res)=>{
+    app.get("/{*}",(req,res)=>{
         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
     })
 }
