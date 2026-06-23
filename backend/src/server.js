@@ -20,17 +20,27 @@ const __dirname = path.resolve();
 app.use(express.json());
 
 // Set CORS based on environment
-const corsOptions = {
-  origin: ENV.NODE_ENV === "production" 
-    ? "https://codeverse-wkhy.onrender.com" 
-    : ENV.CLIENT_URL,
-  credentials: true
-};
-console.log("--- DEBUGGING STARTUP ---");
-console.log("Current NODE_ENV:", ENV.NODE_ENV);
-console.log("CORS Origin:", corsOptions.origin);
-console.log("-------------------------");
-app.use(cors(corsOptions));
+// Add this as the VERY FIRST app.use() after express.json()
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "https://codeverse-wkhy.onrender.com",
+    "http://localhost:5173"
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+  
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 app.use(clerkMiddleware()); 
 
 // API Routes
