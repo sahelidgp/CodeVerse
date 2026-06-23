@@ -17,15 +17,19 @@
     "axios": "^1.18.0",
     "canvas-confetti": "^1.9.4",
     "date-fns": "^4.4.0",
+    "install": "^0.13.0",
     "lucide-react": "^1.21.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
-    "react-resizable-panels": "^4.11.2",
+    "react-resizable-panels": "^2.1.7",
     "react-router": "^8.0.1",
     "react-router-dom": "^7.18.0",
     "stream-chat": "^9.47.1",
     "stream-chat-react": "^14.5.0"
+  },
+  "overrides": {
+    "dompurify": "^3.4.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
