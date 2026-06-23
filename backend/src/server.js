@@ -35,16 +35,15 @@ app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 app.use("/api/sessions", sessionRoutes);
 
-// Production static file serving
+
 if (ENV.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    // Standard Express catch-all route for SPA routing
-    app.get("*", (req, res) => {
+    // Using a RegExp object /.*/ ensures Express doesn't try to parse it as a parameter
+    app.get(/.*/, (req, res) => {
         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
     });
 }
-
 const startServer = async () => {
     try {
         await connectDB();
