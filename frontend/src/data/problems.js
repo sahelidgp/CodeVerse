@@ -38,10 +38,10 @@ export const PROBLEMS = {
   
 }
 
-// Test cases
-console.log(twoSum([2, 7, 11, 15], 9)); // Expected: [0, 1]
-console.log(twoSum([3, 2, 4], 6)); // Expected: [1, 2]
-console.log(twoSum([3, 3], 6)); // Expected: [0, 1]`,
+// Test cases (Using JSON.stringify to match strict output format)
+console.log(JSON.stringify(twoSum([2, 7, 11, 15], 9))); // Expected: [0,1]
+console.log(JSON.stringify(twoSum([3, 2, 4], 6))); // Expected: [1,2]
+console.log(JSON.stringify(twoSum([3, 3], 6))); // Expected: [0,1]`,
       python: `def twoSum(nums, target):
     # Write your solution here
     pass
@@ -102,11 +102,11 @@ class Solution {
 // Test cases
 let test1 = ["h","e","l","l","o"];
 reverseString(test1);
-console.log(test1); // Expected: ["o","l","l","e","h"]
+console.log(JSON.stringify(test1)); // Expected: ["o","l","l","e","h"]
 
 let test2 = ["H","a","n","n","a","h"];
 reverseString(test2);
-console.log(test2); // Expected: ["h","a","n","n","a","H"]`,
+console.log(JSON.stringify(test2)); // Expected: ["h","a","n","n","a","H"]`,
       python: `def reverseString(s):
     # Write your solution here
     pass
@@ -114,11 +114,11 @@ console.log(test2); // Expected: ["h","a","n","n","a","H"]`,
 # Test cases
 test1 = ["h","e","l","l","o"]
 reverseString(test1)
-print(test1)  # Expected: ["o","l","l","e","h"]
+print(test1)  # Expected: ['o', 'l', 'l', 'e', 'h']
 
 test2 = ["H","a","n","n","a","h"]
 reverseString(test2)
-print(test2)  # Expected: ["h","a","n","n","a","H"]`,
+print(test2)  # Expected: ['h', 'a', 'n', 'n', 'a', 'H']`,
       java: `import java.util.*;
 
 class Solution {
@@ -168,8 +168,7 @@ class Solution {
       {
         input: 's = " "',
         output: "true",
-        explanation:
-          's is an empty string "" after removing non-alphanumeric characters. Since an empty string reads the same forward and backward, it is a palindrome.',
+        explanation: 's is an empty string "" after removing non-alphanumeric characters. Since an empty string reads the same forward and backward, it is a palindrome.',
       },
     ],
     constraints: ["1 ≤ s.length ≤ 2 * 10⁵", "s consists only of printable ASCII characters"],
@@ -209,6 +208,134 @@ print(isPalindrome(" "))  # Expected: True`,
       javascript: "true\nfalse\ntrue",
       python: "True\nFalse\nTrue",
       java: "true\nfalse\ntrue",
+    },
+  },
+
+  "valid-parentheses": {
+    id: "valid-parentheses",
+    title: "Valid Parentheses",
+    difficulty: "Easy",
+    category: "String • Stack",
+    description: {
+      text: "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+      notes: [
+        "An input string is valid if:",
+        "1. Open brackets must be closed by the same type of brackets.",
+        "2. Open brackets must be closed in the correct order.",
+        "3. Every close bracket has a corresponding open bracket of the same type."
+      ],
+    },
+    examples: [
+      {
+        input: 's = "()"',
+        output: "true",
+      },
+      {
+        input: 's = "()[]{}"',
+        output: "true",
+      },
+      {
+        input: 's = "(]"',
+        output: "false",
+      },
+    ],
+    constraints: ["1 ≤ s.length ≤ 10⁴", "s consists of parentheses only '()[]{}'"],
+    starterCode: {
+      javascript: `function isValid(s) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(isValid("()")); // Expected: true
+console.log(isValid("()[]{}")); // Expected: true
+console.log(isValid("(]")); // Expected: false`,
+      python: `def isValid(s):
+    # Write your solution here
+    pass
+
+# Test cases
+print(isValid("()"))  # Expected: True
+print(isValid("()[]{}"))  # Expected: True
+print(isValid("(]"))  # Expected: False`,
+      java: `class Solution {
+    public static boolean isValid(String s) {
+        // Write your solution here
+        
+        return false;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(isValid("()")); // Expected: true
+        System.out.println(isValid("()[]{}")); // Expected: true
+        System.out.println(isValid("(]")); // Expected: false
+    }
+}`,
+    },
+    expectedOutput: {
+      javascript: "true\ntrue\nfalse",
+      python: "True\nTrue\nFalse",
+      java: "true\ntrue\nfalse",
+    },
+  },
+
+  "best-time-to-buy-sell-stock": {
+    id: "best-time-to-buy-sell-stock",
+    title: "Best Time to Buy and Sell Stock",
+    difficulty: "Easy",
+    category: "Array • Greedy",
+    description: {
+      text: "You are given an array prices where prices[i] is the price of a given stock on the ith day.",
+      notes: [
+        "You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.",
+        "Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0."
+      ],
+    },
+    examples: [
+      {
+        input: "prices = [7,1,5,3,6,4]",
+        output: "5",
+        explanation: "Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5."
+      },
+      {
+        input: "prices = [7,6,4,3,1]",
+        output: "0",
+        explanation: "In this case, no transactions are done and the max profit = 0."
+      }
+    ],
+    constraints: ["1 ≤ prices.length ≤ 10⁵", "0 ≤ prices[i] ≤ 10⁴"],
+    starterCode: {
+      javascript: `function maxProfit(prices) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(maxProfit([7,1,5,3,6,4])); // Expected: 5
+console.log(maxProfit([7,6,4,3,1])); // Expected: 0`,
+      python: `def maxProfit(prices):
+    # Write your solution here
+    pass
+
+# Test cases
+print(maxProfit([7,1,5,3,6,4]))  # Expected: 5
+print(maxProfit([7,6,4,3,1]))  # Expected: 0`,
+      java: `class Solution {
+    public static int maxProfit(int[] prices) {
+        // Write your solution here
+        return 0;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(maxProfit(new int[]{7,1,5,3,6,4})); // Expected: 5
+        System.out.println(maxProfit(new int[]{7,6,4,3,1})); // Expected: 0
+    }
+}`,
+    },
+    expectedOutput: {
+      javascript: "5\n0",
+      python: "5\n0",
+      java: "5\n0",
     },
   },
 
@@ -278,10 +405,69 @@ print(maxSubArray([5,4,-1,7,8]))  # Expected: 23`,
     },
   },
 
+  "merge-intervals": {
+    id: "merge-intervals",
+    title: "Merge Intervals",
+    difficulty: "Medium",
+    category: "Array • Sorting",
+    description: {
+      text: "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals.",
+      notes: ["Return an array of the non-overlapping intervals that cover all the intervals in the input."],
+    },
+    examples: [
+      {
+        input: "intervals = [[1,3],[2,6],[8,10],[15,18]]",
+        output: "[[1,6],[8,10],[15,18]]",
+        explanation: "Since intervals [1,3] and [2,6] overlap, merge them into [1,6].",
+      },
+      {
+        input: "intervals = [[1,4],[4,5]]",
+        output: "[[1,5]]",
+        explanation: "Intervals [1,4] and [4,5] are considered overlapping.",
+      },
+    ],
+    constraints: ["1 ≤ intervals.length ≤ 10⁴", "intervals[i].length == 2", "0 ≤ starti ≤ endi ≤ 10⁴"],
+    starterCode: {
+      javascript: `function merge(intervals) {
+  // Write your solution here
+  
+}
+
+// Test cases
+console.log(JSON.stringify(merge([[1,3],[2,6],[8,10],[15,18]]))); // Expected: [[1,6],[8,10],[15,18]]
+console.log(JSON.stringify(merge([[1,4],[4,5]]))); // Expected: [[1,5]]`,
+      python: `def merge(intervals):
+    # Write your solution here
+    pass
+
+# Test cases
+print(merge([[1,3],[2,6],[8,10],[15,18]]))  # Expected: [[1, 6], [8, 10], [15, 18]]
+print(merge([[1,4],[4,5]]))  # Expected: [[1, 5]]`,
+      java: `import java.util.*;
+
+class Solution {
+    public static int[][] merge(int[][] intervals) {
+        // Write your solution here
+        return new int[0][0];
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(Arrays.deepToString(merge(new int[][]{{1,3},{2,6},{8,10},{15,18}}))); 
+        System.out.println(Arrays.deepToString(merge(new int[][]{{1,4},{4,5}})));
+    }
+}`,
+    },
+    expectedOutput: {
+      javascript: "[[1,6],[8,10],[15,18]]\n[[1,5]]",
+      python: "[[1, 6], [8, 10], [15, 18]]\n[[1, 5]]",
+      java: "[[1, 6], [8, 10], [15, 18]]\n[[1, 5]]",
+    },
+  },
+
   "container-with-most-water": {
     id: "container-with-most-water",
     title: "Container With Most Water",
-    difficulty: "Medium",
+    difficulty: "Medium", 
     category: "Array • Two Pointers",
     description: {
       text: "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).",
