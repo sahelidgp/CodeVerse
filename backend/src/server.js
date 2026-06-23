@@ -26,7 +26,10 @@ const corsOptions = {
     : ENV.CLIENT_URL,
   credentials: true
 };
-
+console.log("--- DEBUGGING STARTUP ---");
+console.log("Current NODE_ENV:", ENV.NODE_ENV);
+console.log("CORS Origin:", corsOptions.origin);
+console.log("-------------------------");
 app.use(cors(corsOptions));
 app.use(clerkMiddleware()); 
 

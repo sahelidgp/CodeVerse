@@ -115,11 +115,24 @@ function HomePage() {
           </div>
 
           {/* RIGHT IMAGE */}
-          <img
-            src="/my_hero.png"
-            alt="CodeCollab Platform"
-            className="w-full h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500"
-          />
+         <div className="relative group">
+  <div className="absolute -inset-2 bg-primary/20 blur-2xl rounded-3xl opacity-70 group-hover:opacity-100 transition duration-500"></div>
+
+  <img
+    src="/my_hero.png"
+    alt="Code Verse Interview Platform"
+    className="
+      relative
+      rounded-3xl
+      border border-primary/20
+      shadow-[0_0_60px_rgba(34,197,94,0.18)]
+      group-hover:shadow-[0_0_100px_rgba(34,197,94,0.3)]
+      transition-all
+      duration-500
+      w-full
+    "
+  />
+</div>
         </div>
       </div>
 
