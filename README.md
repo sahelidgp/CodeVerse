@@ -8,7 +8,10 @@
 It is a high-performance, real-time pair programming platform built to bridge the gap between developers, no matter where they are! Whether you're conducting a technical interview or building a project with a friend, CodeVerse makes collaboration seamless, fast, and fun.
 # 🌐Features Demo
 ![Alt text for the image](frontend/public/code_execution.png)
+
 ![Alt text for the image](frontend/public/interview.png)
+
+![Alt text for the image](frontend/public/dashboard.png)
 
 # 🌟 Why CodeVerse?
 We believe coding together should be as fluid as coding alone. That’s why we’ve combined the power of VS Code’s editor engine with real-time video conferencing and a robust execution engine to create the perfect environment for pair programming!
