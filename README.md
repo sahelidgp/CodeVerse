@@ -1,4 +1,4 @@
-# 🚀 CodeVerse - The Ultimate Collaborative Coding Experience!🚀
+# 🚀 CodeVerse - CodeVerse – Real-Time Peer Coding Interview Platform!🚀
 ![Alt text for the image](frontend/public/screenshot.png)
 
 ### 🌐 [Live Demo](https://codeverse-wkhy.onrender.com)
